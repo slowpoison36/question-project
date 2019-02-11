@@ -21,6 +21,7 @@ mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true },(err)=>{
      }
 })
 
+
 app.use("/api",questionRoute);
 
 
