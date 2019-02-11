@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 
 
-mongoose.connect(process.env.DB_URL,(err)=>{
+mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true },(err)=>{
      if(!err){
           console.log("Connected to database");
      }
@@ -29,7 +29,7 @@ app.get("*",(req,res,next)=>{
 })
 
 
-app.listen(PORT,()=>console.log("Server Started in Port" + PORT));
+app.listen(PORT,()=>console.log("Server Started in Port " + PORT));
 
 
 
