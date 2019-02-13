@@ -18,15 +18,23 @@ router.post("/new-question", (req, res, next) => {
 
 
 router.get("/questions", (req, res, next) => {
+    let pageNum = req.query.pageNum;
+    let pageSize = req.query.pageSize|| 5;
     Question.find({})
         .populate("answer")
         .sort({created:"desc"})
+        .skip(pageNum * pageSize)
+        .limit(pageSize)
         .exec((err, questions) => {
             if (err) {
                 return next(err);
             }
-            console.log(questions);
-            return res.status(200).json({ success: true, questions: questions });
+            Question.countDocuments((err,count)=>{
+                if(err){
+                     return next(err);
+                }
+                return res.status(200).json({ success: true, questions: questions, total:count });
+            })
         })
 })
 
